@@ -1,0 +1,84 @@
+------------------------------------------
+#navigating with beautiful soup(via tags)#
+------------------------------------------
+
+*parent/parents
+*contents
+*next_sibling/next_siblings
+*previous_sibling/previous_siblings
+
+-----------------------------------------------
+#navigating with beautiful soup(via searching)#
+-----------------------------------------------
+
+*find_parent/find_parents
+*find_next_sibling/find_next_siblings
+*find_previous_sibling/find_previous_siblings
+
+---------------------------------------------------------------------------------------
+
+
+soup = BeautifulSoup(html,"html5lib")
+tag = soup.body.contents --returns everything in the body in list form
+
+soup.body.contents[1] --returns the second child
+
+soup.body.contents[1].next_sibling --returns the sibling next to secondchild
+
+soup.body.contents[1].next_sibling.next_sibling --returns the sibling next to next the second child
+
+soup.find(class_ = "super").parent --returs the immediate parent of the tag that is selected
+
+soup.find(id="first").find_next_sibling() --finds a valid sibling and returns the sibling next to the selected one
+
+soup.find("h3").find_parent() --returns the immediate parent of the selected tag
+
+soup.find(id="second").find_next_sibling(class_="special-class") --returns the sibling next to the selected one that has class = special-class
+
+----------------------------------------------------------------------------------------
+#selecting with BeautifulSoup#
+----------------------------------------------------------------------------------------
+*selecting by Tag Name --
+--------------------------
+
+
+soup.body --returns the body HTML 
+soup.body.div --returns the first div HTML
+soup.find("div") --returns the first div(bs4 element tag)
+soup.find_all("div") --returns a list of all div elements
+
+-----------------------
+*selecting using attrs
+-----------------------
+
+soup.find(id="first") --returns the html element with id = "first"
+soup.find_all(class_="special") --returns a list of html elements with class 'special'
+soup.find_all(attrs={"data-example":"yes"})
+
+-----------------------------------
+#selecting using CSS selectors
+-----------------------------------
+
+soup.select("#first") --returns a list of elements with CSS selector of id = first
+soup.select(".special") --selects on the basis of class names
+soup.select("div") --selects on the basis of tag names
+soup.select("[data-example]") --selects on the basis of attribute names
+soup.select("#foo")[0] --returns a list with one object
+soup.find(id="foo") --returns only 1 object
+
+
+---------------------------------------------
+#Accessing data with BeautifulSoup
+---------------------------------------------
+
+el = soup.select(".special")[0] --to get the text inside the html element
+el.get_text()
+
+el.name --returns the tag name of the selected tag
+
+el.attrs['data-example'] --returns the value of the data-example attribute of the element
+soup.find("div")["id"] --returns the value of the id attribute of the element 
+
+ 
+
+
